@@ -5,7 +5,7 @@ import { Message, Sender, WidgetType, WidgetData } from './types';
 import { MessageBubble } from './components/MessageBubble';
 import { streamChatResponse, generateWidgets } from './services/geminiService';
 
-const API_KEY = (typeof process !== 'undefined' && process.env?.API_KEY) || ""; 
+const API_KEY = process.env.API_KEY || ""; 
 const RLM = "\u200f"; // Right-to-Left Mark
 
 // --- Question Repository ---

@@ -3,8 +3,8 @@ import { WidgetType, WidgetData } from "../types";
 
 // --- Configuration ---
 
-const MODEL_TEXT = 'gemini-2.5-flash';
-const MODEL_LOGIC = 'gemini-2.5-flash';
+const MODEL_TEXT = 'gemini-2.5-flash-lite-preview-09-2025';
+const MODEL_LOGIC = 'gemini-2.5-flash-lite-preview-09-2025';
 
 // --- Singleton Instance Management ---
 let genAIInstance: GoogleGenAI | null = null;
