@@ -1,0 +1,5 @@
+{
+  "name": "BioBot",
+  "description": "An interactive AI biology tutor for high school students featuring a dual-channel architecture for streaming text and interactive learning widgets.",
+  "requestFramePermissions": []
+}
