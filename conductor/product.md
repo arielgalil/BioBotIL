@@ -18,6 +18,7 @@ BIO-Bot serves as a personal, intelligent biology tutor for Israeli high school 
 - **Localized Content:** Full support for Hebrew language and Right-to-Left (RTL) interface design.
 - **Multi-Part Explanations:** A structured 4-part response system (Opening, Scientific Explanation, Analogy, and Bonus/Trivia) to maximize engagement and retention.
 - **Dark Mode Support:** A modern, accessible UI that respects user preferences.
+- **Real-time Budget Control:** Client-side monitoring of API costs via Firestore to prevent overages.
 
 ## Educational Strategy
 - **Scientific Rigor:** Strict adherence to the Israeli High School Biology Curriculum and scientific consensus.

@@ -9,6 +9,7 @@
 ## AI & Logic
 - **SDK:** Google Generative AI SDK (`@google/genai`)
 - **Models:** Gemini 2.5 Flash / Gemini 2.5 Flash Lite (Preview)
+- **Billing Logic:** Client-side usage tracking and Firestore-based budget enforcement.
 
 ## Infrastructure
 - **Build Tool:** Vite
@@ -18,3 +19,5 @@
   - **Unit Testing:** Vitest
   - **Component Testing:** React Testing Library
 - **Environment Management:** Vite `.env` loading (mapped to `process.env.API_KEY`)
+- **Database:** Firebase Firestore (for billing configuration and cost tracking).
+- **Analytics:** Firebase Analytics.
