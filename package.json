@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:manual": "tsx scripts/manual-test-gemini.ts",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -21,7 +22,9 @@
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "@vitest/coverage-v8": "^4.0.17",
+    "dotenv": "^17.2.3",
     "jsdom": "^27.4.0",
+    "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
     "vitest": "^4.0.17"
