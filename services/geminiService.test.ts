@@ -182,5 +182,14 @@ describe('geminiService', () => {
       const widgets = await generateWidgets('fake-key', 'Biology');
       expect(widgets).toEqual([]);
     });
+
+    it('should be consistent across multiple calls with different topics', async () => {
+      const topics = ['Photosynthesis', 'Mitosis', 'Digestion'];
+      for (const topic of topics) {
+        const widgets = await generateWidgets('fake-key', topic);
+        expect(widgets).toHaveLength(3);
+        expect(widgets[0].type).toBe(WidgetType.RelatedTopics);
+      }
+    });
   });
 });

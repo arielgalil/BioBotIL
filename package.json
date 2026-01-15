@@ -10,6 +10,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:manual": "tsx scripts/manual-test-gemini.ts",
+    "test:widgets": "tsx scripts/test-widgets-consistency.ts",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
