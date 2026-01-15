@@ -17,7 +17,7 @@
 - [x] Task: Conductor - User Manual Verification 'UI Implementation & Metadata Cleanup' (Protocol in workflow.md) (343bb9b)
 
 ## Phase 4: Final Verification & Audit
-- [ ] Task: Testing - PWA Audit & Offline Verification
+- [x] Task: Testing - PWA Audit & Offline Verification (d2c34e4)
   - [ ] Subtask: Build the project (`npm run build`) and preview it to verify the service worker is active.
   - [ ] Subtask: Test "Offline Mode" by disabling network in dev tools and reloading the app shell.
   - [ ] Subtask: Run a Lighthouse PWA audit and ensure all core checks pass.
