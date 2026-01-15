@@ -4,7 +4,7 @@
 - [x] Task: Project - Remove Tailwind CDN (e76fcb5)
   - [ ] Subtask: Remove the `<script src="https://cdn.tailwindcss.com"></script>` tag from `index.html`.
   - [ ] Subtask: Verify that styles break (Red phase for CSS setup).
-- [ ] Task: Infrastructure - Install PostCSS & Tailwind
+- [x] Task: Infrastructure - Install PostCSS & Tailwind (645b13b)
   - [ ] Subtask: Install `tailwindcss`, `postcss`, `autoprefixer` via npm.
   - [ ] Subtask: Initialize Tailwind and PostCSS config files (`npx tailwindcss init -p`).
 - [ ] Task: Infrastructure - Configure Tailwind Build
