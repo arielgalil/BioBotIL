@@ -12,7 +12,7 @@
 - [x] Task: Conductor - User Manual Verification 'Vite PWA Plugin Integration' (Protocol in workflow.md) (5194400)
 
 ## Phase 3: UI Implementation & Metadata Cleanup
-- [ ] Task: UI - Fix Deprecated Metadata
+- [x] Task: UI - Fix Deprecated Metadata (6676faf)
   - [ ] Subtask: Update `index.html` to replace `apple-mobile-web-app-capable` with `mobile-web-app-capable`.
   - [ ] Subtask: Remove any other deprecated meta tags or console-warning-triggering elements.
 - [ ] Task: UI - Implement Install Prompt Logic
