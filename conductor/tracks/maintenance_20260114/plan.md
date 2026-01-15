@@ -1,7 +1,7 @@
 # Track Plan: Maintenance & Optimization
 
 ## Phase 1: Model Integration Verification
-- [ ] Task: Service - Verify Model Configuration
+- [x] Task: Service - Verify Model Configuration (4a0577d)
   - [ ] Subtask: Inspect `services/geminiService.ts` to confirm `MODEL_TEXT` and `MODEL_LOGIC` constants are set to `gemini-2.5-flash-lite-preview-09-2025`.
   - [ ] Subtask: Add temporary logging to `streamChatResponse` to capture the raw model name being used during execution.
 - [ ] Task: Service - Test Text Streaming
