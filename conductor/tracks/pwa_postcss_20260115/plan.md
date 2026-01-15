@@ -7,14 +7,9 @@
 - [x] Task: Conductor - User Manual Verification 'Environment & PostCSS Setup' (Protocol in workflow.md) (8fb1998)
 
 ## Phase 2: Vite PWA Plugin Integration
-- [ ] Task: Infrastructure - Install & Configure Vite PWA Plugin
-  - [ ] Subtask: Install `vite-plugin-pwa`.
-  - [ ] Subtask: Configure `vite.config.ts` to use the PWA plugin with `registerType: 'autoUpdate'`.
-  - [ ] Subtask: Define the web app manifest within the plugin configuration (icons, theme colors, standalone mode).
-- [ ] Task: Infrastructure - Migrate Static Manifest
-  - [ ] Subtask: Remove old `manifest.json` and `sw.js` if they conflict with the plugin-generated ones.
-  - [ ] Subtask: Ensure all icon assets referenced in the manifest exist in the `public` folder.
-- [ ] Task: Conductor - User Manual Verification 'Vite PWA Plugin Integration' (Protocol in workflow.md)
+- [x] Task: Infrastructure - Install & Configure Vite PWA Plugin (c18f9c7)
+- [x] Task: Infrastructure - Migrate Static Manifest (c18f9c7)
+- [~] Task: Conductor - User Manual Verification 'Vite PWA Plugin Integration' (Protocol in workflow.md)
 
 ## Phase 3: UI Implementation & Metadata Cleanup
 - [ ] Task: UI - Fix Deprecated Metadata
