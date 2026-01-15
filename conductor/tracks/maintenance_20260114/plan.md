@@ -8,7 +8,7 @@
 ## Phase 2: Widget Generation Stability
 - [x] Task: Service - Verify JSON Schema Compatibility (dde9d04)
   - [ ] Subtask: Review the `generateWidgets` function. Ensure the `responseSchema` definition aligns with the latest Gemini API specs for structured output.
-  - [ ] Subtask: Implement a unit test or dev-mode trigger to call `generateWidgets` 5 times with different topics to ensure consistent JSON parsing.
+  - [x] Subtask: Implement a unit test or dev-mode trigger to call `generateWidgets` 5 times with different topics to ensure consistent JSON parsing. (4a83bee)
 - [ ] Task: UI - Validate Widget Rendering
   - [ ] Subtask: Verify that the generated JSON data (Knowledge Questions, Causal Chains) is correctly rendered by the `GameWidgets` component without React errors.
 - [ ] Task: Conductor - User Manual Verification 'Widget Generation Stability' (Protocol in workflow.md)
