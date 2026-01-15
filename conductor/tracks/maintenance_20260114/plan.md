@@ -6,7 +6,7 @@
 - [x] Task: Conductor - User Manual Verification 'Model Integration Verification' (Protocol in workflow.md) (d5674d6)
 
 ## Phase 2: Widget Generation Stability
-- [ ] Task: Service - Verify JSON Schema Compatibility
+- [x] Task: Service - Verify JSON Schema Compatibility (dde9d04)
   - [ ] Subtask: Review the `generateWidgets` function. Ensure the `responseSchema` definition aligns with the latest Gemini API specs for structured output.
   - [ ] Subtask: Implement a unit test or dev-mode trigger to call `generateWidgets` 5 times with different topics to ensure consistent JSON parsing.
 - [ ] Task: UI - Validate Widget Rendering
