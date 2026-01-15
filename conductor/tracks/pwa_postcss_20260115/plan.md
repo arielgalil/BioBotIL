@@ -7,7 +7,7 @@
 - [x] Task: Infrastructure - Install PostCSS & Tailwind (645b13b)
   - [ ] Subtask: Install `tailwindcss`, `postcss`, `autoprefixer` via npm.
   - [ ] Subtask: Initialize Tailwind and PostCSS config files (`npx tailwindcss init -p`).
-- [ ] Task: Infrastructure - Configure Tailwind Build
+- [x] Task: Infrastructure - Configure Tailwind Build (22f6e6e)
   - [ ] Subtask: Update `tailwind.config.ts` to include `content` paths for all React components.
   - [ ] Subtask: Create a `src/index.css` file with `@tailwind base;`, `@tailwind components;`, and `@tailwind utilities;`.
   - [ ] Subtask: Import `index.css` in `index.tsx`.
