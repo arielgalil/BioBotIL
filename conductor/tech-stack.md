@@ -13,4 +13,7 @@
 ## Infrastructure
 - **Build Tool:** Vite
 - **Hosting:** Firebase Hosting
+- **Testing:** 
+  - **Unit Testing:** Vitest
+  - **Component Testing:** React Testing Library
 - **Environment Management:** Vite `.env` loading (mapped to `process.env.API_KEY`)
