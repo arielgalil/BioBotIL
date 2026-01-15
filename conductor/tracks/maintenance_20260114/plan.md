@@ -6,7 +6,7 @@
   - [ ] Subtask: Add temporary logging to `streamChatResponse` to capture the raw model name being used during execution.
 - [x] Task: Service - Test Text Streaming (18be003)
   - [ ] Subtask: Create a manual test script or use a dev component to trigger a chat request and verify the streaming response content.
-- [ ] Task: Conductor - User Manual Verification 'Model Integration Verification' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Model Integration Verification' (Protocol in workflow.md)
 
 ## Phase 2: Widget Generation Stability
 - [ ] Task: Service - Verify JSON Schema Compatibility
