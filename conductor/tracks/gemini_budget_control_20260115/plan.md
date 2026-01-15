@@ -4,7 +4,7 @@ This plan implements a client-side budget tracking and enforcement system using 
 
 ## Phase 1: Infrastructure & Firebase Setup
 - [x] Task: Install Firebase dependencies (`firebase`) 30cad20
-- [ ] Task: Initialize Firebase app and Firestore instance in a new `services/firebase.ts` file
+- [x] Task: Initialize Firebase app and Firestore instance in a new `services/firebase.ts` file bd60ddd
 - [ ] Task: Create a setup script or documentation for creating the `config/billing` document in Firestore
 - [ ] Task: Conductor - User Manual Verification 'Infrastructure & Firebase Setup' (Protocol in workflow.md)
 
