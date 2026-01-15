@@ -11,9 +11,7 @@
 - [x] Task: UI - Validate Widget Rendering (316740e)
 - [x] Task: Conductor - User Manual Verification 'Widget Generation Stability' (Protocol in workflow.md) (c50295a)
 
-## Phase 3: Error Handling & Cleanup
+## Phase 3: Error Handling & Cleanup [checkpoint: 0f4b34f]
 - [x] Task: Service - Refine Error Handling (b821ee2)
-  - [ ] Subtask: Update the `try-catch` blocks in `geminiService.ts` to specifically handle "Model Not Found" or new rate limit codes that might differ for preview models.
 - [x] Task: Cleanup - Remove Debug Logs (ff1021d)
-  - [ ] Subtask: Remove the temporary logging added in Phase 1.
-- [~] Task: Conductor - User Manual Verification 'Error Handling & Cleanup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Error Handling & Cleanup' (Protocol in workflow.md) (0f4b34f)
