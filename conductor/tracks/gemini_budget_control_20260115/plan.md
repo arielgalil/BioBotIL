@@ -25,6 +25,6 @@ This plan implements a client-side budget tracking and enforcement system using 
 - [x] Task: Conductor - User Manual Verification 'Gemini Service Integration' (Protocol in workflow.md)
 
 ## Phase 4: UI & Error Handling
-- [ ] Task: Update `App.tsx` to handle the specific "Budget Exceeded" error thrown by the service
-- [ ] Task: Implement a Hebrew error message/toast for budget exhaustion: "מצטערים, המערכת הגיעה למגבלת התקציב היומית שלה. נסו שוב מאוחר יותר."
-- [ ] Task: Conductor - User Manual Verification 'UI & Error Handling' (Protocol in workflow.md)
+- [x] Task: Update `App.tsx` to handle the specific "Budget Exceeded" error thrown by the service 15999e5
+- [x] Task: Implement a Hebrew error message/toast for budget exhaustion: "מצטערים, המערכת הגיעה למגבלת התקציב היומית שלה. נסו שוב מאוחר יותר." 15999e5
+- [~] Task: Conductor - User Manual Verification 'UI & Error Handling' (Protocol in workflow.md)
