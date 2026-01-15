@@ -1,12 +1,9 @@
 # Track Plan: Maintenance & Optimization
 
-## Phase 1: Model Integration Verification
+## Phase 1: Model Integration Verification [checkpoint: d5674d6]
 - [x] Task: Service - Verify Model Configuration (4a0577d)
-  - [ ] Subtask: Inspect `services/geminiService.ts` to confirm `MODEL_TEXT` and `MODEL_LOGIC` constants are set to `gemini-2.5-flash-lite-preview-09-2025`.
-  - [ ] Subtask: Add temporary logging to `streamChatResponse` to capture the raw model name being used during execution.
 - [x] Task: Service - Test Text Streaming (18be003)
-  - [ ] Subtask: Create a manual test script or use a dev component to trigger a chat request and verify the streaming response content.
-- [~] Task: Conductor - User Manual Verification 'Model Integration Verification' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Model Integration Verification' (Protocol in workflow.md) (d5674d6)
 
 ## Phase 2: Widget Generation Stability
 - [ ] Task: Service - Verify JSON Schema Compatibility
