@@ -15,7 +15,7 @@
 - [x] Task: UI - Fix Deprecated Metadata (6676faf)
   - [ ] Subtask: Update `index.html` to replace `apple-mobile-web-app-capable` with `mobile-web-app-capable`.
   - [ ] Subtask: Remove any other deprecated meta tags or console-warning-triggering elements.
-- [ ] Task: UI - Implement Install Prompt Logic
+- [x] Task: UI - Implement Install Prompt Logic (20b7293)
   - [ ] Subtask: Create a custom hook or state in `App.tsx` to listen for the `beforeinstallprompt` event.
   - [ ] Subtask: Implement a visually appealing "Install App" button that only appears when the event is captured.
 - [ ] Task: Conductor - User Manual Verification 'UI Implementation & Metadata Cleanup' (Protocol in workflow.md)
