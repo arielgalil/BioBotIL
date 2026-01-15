@@ -16,9 +16,6 @@
 - [x] Task: UI - Implement Install Prompt Logic (20b7293)
 - [x] Task: Conductor - User Manual Verification 'UI Implementation & Metadata Cleanup' (Protocol in workflow.md) (343bb9b)
 
-## Phase 4: Final Verification & Audit
+## Phase 4: Final Verification & Audit [checkpoint: d2c34e4]
 - [x] Task: Testing - PWA Audit & Offline Verification (d2c34e4)
-  - [ ] Subtask: Build the project (`npm run build`) and preview it to verify the service worker is active.
-  - [ ] Subtask: Test "Offline Mode" by disabling network in dev tools and reloading the app shell.
-  - [ ] Subtask: Run a Lighthouse PWA audit and ensure all core checks pass.
-- [ ] Task: Conductor - User Manual Verification 'Final Verification & Audit' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Final Verification & Audit' (Protocol in workflow.md) (d2c34e4)

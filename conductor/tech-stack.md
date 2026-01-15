@@ -13,6 +13,7 @@
 ## Infrastructure
 - **Build Tool:** Vite
 - **Hosting:** Firebase Hosting
+- **PWA Integration:** `vite-plugin-pwa` (Workbox)
 - **Testing:** 
   - **Unit Testing:** Vitest
   - **Component Testing:** React Testing Library

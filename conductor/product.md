@@ -13,6 +13,7 @@ BIO-Bot serves as a personal, intelligent biology tutor for Israeli high school 
 
 ## Core Features
 - **Intelligent Streaming Chat:** Real-time, friendly dialogue using a "Tutor" persona powered by Google Gemini.
+- **Progressive Web App (PWA):** Fully installable on mobile and desktop with offline support for the application shell.
 - **Interactive Educational Widgets:** Dynamic generation of Knowledge Questions (Multiple Choice, True/False) and Application Tasks (Causal Chains, Cloze sentences).
 - **Localized Content:** Full support for Hebrew language and Right-to-Left (RTL) interface design.
 - **Multi-Part Explanations:** A structured 4-part response system (Opening, Scientific Explanation, Analogy, and Bonus/Trivia) to maximize engagement and retention.
