@@ -1,17 +1,10 @@
 # Track Plan: PWA & PostCSS Migration
 
-## Phase 1: Environment & PostCSS Setup
+## Phase 1: Environment & PostCSS Setup [checkpoint: 8fb1998]
 - [x] Task: Project - Remove Tailwind CDN (e76fcb5)
-  - [ ] Subtask: Remove the `<script src="https://cdn.tailwindcss.com"></script>` tag from `index.html`.
-  - [ ] Subtask: Verify that styles break (Red phase for CSS setup).
 - [x] Task: Infrastructure - Install PostCSS & Tailwind (645b13b)
-  - [ ] Subtask: Install `tailwindcss`, `postcss`, `autoprefixer` via npm.
-  - [ ] Subtask: Initialize Tailwind and PostCSS config files (`npx tailwindcss init -p`).
 - [x] Task: Infrastructure - Configure Tailwind Build (22f6e6e)
-  - [ ] Subtask: Update `tailwind.config.ts` to include `content` paths for all React components.
-  - [ ] Subtask: Create a `src/index.css` file with `@tailwind base;`, `@tailwind components;`, and `@tailwind utilities;`.
-  - [ ] Subtask: Import `index.css` in `index.tsx`.
-- [~] Task: Conductor - User Manual Verification 'Environment & PostCSS Setup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Environment & PostCSS Setup' (Protocol in workflow.md) (8fb1998)
 
 ## Phase 2: Vite PWA Plugin Integration
 - [ ] Task: Infrastructure - Install & Configure Vite PWA Plugin
