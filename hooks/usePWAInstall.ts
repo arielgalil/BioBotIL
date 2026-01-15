@@ -1,48 +1,59 @@
 import { useState, useEffect } from 'react';
 
+// Global variable to persist state across re-mounts in development
+let globalInstallPrompt: any = null;
+let globalIsInstallable = false;
+
 export function usePWAInstall() {
-  const [installPrompt, setInstallPrompt] = useState<any>(null);
-  const [isInstallable, setIsInstallable] = useState(false);
+  const [installPrompt, setInstallPrompt] = useState<any>(globalInstallPrompt);
+  const [isInstallable, setIsInstallable] = useState(globalIsInstallable);
 
   useEffect(() => {
+    const isLocal = window.location.hostname === 'localhost';
+    
+    // For debugging: Force show button on localhost after 3 seconds
+    const timer = setTimeout(() => {
+      if (isLocal && !globalIsInstallable) {
+        console.log('PWA: Debug - Forcing installable state');
+        globalIsInstallable = true;
+        setIsInstallable(true);
+      }
+    }, 3000);
+
     const handler = (e: any) => {
-      // Prevent the default browser prompt
+      console.log('PWA: beforeinstallprompt event fired!');
+      clearTimeout(timer);
       e.preventDefault();
-      // Stash the event so it can be triggered later.
+      globalInstallPrompt = e;
+      globalIsInstallable = true;
       setInstallPrompt(e);
       setIsInstallable(true);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
-
-    // Check if app is already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      setIsInstallable(false);
-    }
-
+    
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
+      clearTimeout(timer);
     };
   }, []);
 
   const handleInstallClick = async () => {
-    if (!installPrompt) return;
-
-    // Show the install prompt
-    installPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
-    const { outcome } = await installPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
-      console.log('User accepted the PWA install prompt');
-      setIsInstallable(false);
-    } else {
-      console.log('User dismissed the PWA install prompt');
+    const promptToUse = installPrompt || globalInstallPrompt;
+    if (!promptToUse) {
+      alert("Note: This is a debug button. In a real scenario, the browser handles the actual installation prompt here.");
+      return;
     }
 
-    // Clear the saved prompt since it can't be used again
-    setInstallPrompt(null);
+    promptToUse.prompt();
+    const { outcome } = await promptToUse.userChoice;
+    
+    if (outcome === 'accepted') {
+      console.log('PWA: User accepted install');
+      globalIsInstallable = false;
+      globalInstallPrompt = null;
+      setIsInstallable(false);
+    }
   };
 
   return { isInstallable, handleInstallClick };

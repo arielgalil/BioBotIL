@@ -16,7 +16,13 @@ export default defineConfig(({ mode }) => {
         react(),
         VitePWA({
           registerType: 'autoUpdate',
-          includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+          devOptions: {
+            enabled: true
+          },
+          workbox: {
+            skipWaiting: true,
+            clientsClaim: true,
+          },
           manifest: {
             name: 'BIOבוט - המורה הפרטי שלך לביולוגיה',
             short_name: 'BIOבוט',

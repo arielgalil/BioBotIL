@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Moon, Sun, X, Sparkles, Trash2, Download } from 'lucide-react';
 import { Message, Sender, WidgetType, WidgetData } from './types';
@@ -9,10 +8,76 @@ import { usePWAInstall } from './hooks/usePWAInstall';
 const API_KEY = process.env.API_KEY || ""; 
 const RLM = "\u200f"; // Right-to-Left Mark
 
-// ... (Question Repository)
+// --- Question Repository ---
+const QUESTION_POOL = [
+  // גוף האדם ופיזיולוגיה (Human Body & Physiology) 🫀
+  { icon: "🫀", text: "איך פועל הלב?" },
+  { icon: "🧠", text: "איך המוח שומר זיכרונות?" },
+  { icon: "🦴", text: "למה השרירים כואבים אחרי אימון?" },
+  { icon: "🩸", text: "איך פועלת מערכת החיסון?" },
+  { icon: "👀", text: "איך העין רואה צבעים?" },
+  { icon: "🤒", text: "למה יש לנו חום כשאנחנו חולים?" },
+  { icon: "💤", text: "למה אנחנו צריכים לישון?" },
+  { icon: "🍏", text: "מה קורה לאוכל בקיבה?" },
+  { icon: "💪", text: "איך שרירים נבנים?" },
+  { icon: "👂", text: "איך אנחנו שומעים?" },
+  { icon: "💭", text: "מה קורה במוח כשאנחנו חולמים?" },
+  { icon: "🥱", text: "למה אנחנו מפהקים?" },
+  { icon: "🌶️", text: "למה פלפל חריף שורף בפה?" },
+  { icon: "🅰️", text: "למה יש סוגי דם שונים?" },
+  { icon: "⚡", text: "מה זה אדרנלין ומה הוא עושה לגוף?" },
+  { icon: "🤕", text: "איך הגוף מרפא פצעים?" },
+
+  // התא וגנטיקה (Cell & Genetics) 🦠
+  { icon: "🦠", text: "מה ההבדל בין תא צמח לתא אנימלי?" },
+  { icon: "🔋", text: "מה תפקיד המיטוכונדריה?" },
+  { icon: "🧬", text: "איך ה-DNA משוכפל?" },
+  { icon: "🛡️", text: "מה תפקיד קרום התא?" },
+  { icon: "🦠", text: "מה ההבדל בין חיידק לוירוס?" },
+  { icon: "☀️", text: "מהי פוטוסינתזה?" },
+  { icon: "🏗️", text: "מה זה ריבוזום?" },
+  { icon: "➗", text: "מה קורה במיטוזה?" },
+  { icon: "✉️", text: "איך תאים מתקשרים זה עם זה?" },
+  { icon: "🧪", text: "מה הם אנזימים?" },
+  { icon: "👯", text: "האם אפשר לשבט בני אדם?" },
+  { icon: "✂️", text: "מה זה CRISPR?" },
+
+  // אבולוציה (Evolution) 🦖
+  { icon: "🦒", text: "למה לג'ירפה יש צוואר ארוך?" },
+  { icon: "🦍", text: "האם בני האדם עדיין עוברים אבולוציה?" },
+  { icon: "🦕", text: "למה הדינוזאורים נכחדו?" },
+  { icon: "🦎", text: "איך נוצרים מינים חדשים בטבע?" },
+  { icon: "🐟", text: "איך דגים התחילו ללכת על היבשה?" },
+  { icon: "🦚", text: "למה לטווס יש זנב מפואר?" },
+
+  // אקולוגיה וטבע (Ecology & Nature) 🌿
+  { icon: "🍂", text: "למה עלים מחליפים צבע בשלכת?" },
+  { icon: "🐝", text: "למה דבורים חשובות לטבע?" },
+  { icon: "🔗", text: "מהי שרשרת מזון?" },
+  { icon: "🤝", text: "מהי סימביוזה?" },
+  { icon: "🌵", text: "איך חיות מסתגלות למדבר?" },
+  { icon: "🌍", text: "מהו אפקט החממה?" },
+  { icon: "🍄", text: "איך פטריות עוזרות ליער?" },
+  { icon: "🐠", text: "למה השוניות מלבינות?" },
+  { icon: "🦅", text: "איך ציפורים יודעות לאן לנדוד?" },
+  { icon: "💡", text: "איך גחליליות מאירות?" },
+  { icon: "🦗", text: "מה הנזק של מינים פולשים?" },
+
+  // מחקר ורפואה (Research & Medicine) 🔬
+  { icon: "💉", text: "איך מפתחים חיסון חדש?" },
+  { icon: "💊", text: "מה זה פלצבו?" },
+  { icon: "🧫", text: "איך גילו את האנטיביוטיקה?" },
+  { icon: "🐁", text: "למה עושים ניסויים בעכברים?" },
+  { icon: "🩸", text: "מה בדיקת דם יכולה לגלות?" },
+  { icon: "🔎", text: "מה ההבדל בין תאוריה לעובדה?" },
+  { icon: "🧪", text: "איך עובד ניסוי קליני?" },
+  { icon: "🧲", text: "איך עובד MRI?" },
+  { icon: "🐍", text: "מה ההבדל בין ארס לרעל?" }
+];
 
 function App() {
   const { isInstallable, handleInstallClick } = usePWAInstall();
+
   // -- Local Storage Init --
   const [messages, setMessages] = useState<Message[]>(() => {
     try {
@@ -148,7 +213,7 @@ function App() {
           accumulatedText += chunk;
           setMessages(prev => prev.map(msg => 
             msg.id === botMsgId 
-              ? { ...msg, content: accumulatedText }
+              ? { ...msg, content: accumulatedText } 
               : msg
           ));
         },
@@ -158,7 +223,7 @@ function App() {
       // Mark text streaming as done immediately after text finishes
       setMessages(prev => prev.map(msg => 
         msg.id === botMsgId 
-          ? { ...msg, isStreaming: false }
+          ? { ...msg, isStreaming: false } 
           : msg
       ));
 
@@ -168,7 +233,7 @@ function App() {
               if (widgets && widgets.length > 0) {
                   setMessages(prev => prev.map(msg => 
                       msg.id === botMsgId 
-                      ? { ...msg, widgets: widgets }
+                      ? { ...msg, widgets: widgets } 
                       : msg
                   ));
               }
@@ -193,7 +258,8 @@ function App() {
          // Do not log as error to avoid scary console overlays
          console.warn("Quota exceeded (429), alerting user.");
          userMessage = `
-\n\n---
+
+---
 🛑 **הגענו למגבלת השימוש בחשבון החינמי**
 
 המערכת משתמשת בשירות AI בחבילה חינמית, והגענו למכסת הבקשות לרגע זה.
@@ -207,7 +273,7 @@ function App() {
 
       setMessages(prev => prev.map(msg => 
         msg.id === botMsgId 
-          ? { ...msg, isStreaming: false, content: msg.content + userMessage }
+          ? { ...msg, isStreaming: false, content: msg.content + userMessage } 
           : msg
       ));
     } finally {
@@ -234,7 +300,7 @@ function App() {
                     <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wide mb-0.5 flex gap-1">
                       מבית 
                       <a 
-                        href="https://galilbio.wordpress.com" 
+                        href="https://galilbio.wordpress.com"
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-bio-600 dark:text-bio-400 hover:text-bio-700 dark:hover:text-bio-300 hover:underline transition-colors font-bold"
@@ -306,7 +372,7 @@ function App() {
               <MessageBubble 
                 key={msg.id} 
                 message={msg} 
-                onReply={(text, id) => setReplyContext({ text, id })} 
+                onReply={(text, id) => setReplyContext({ text, id })}
                 onTopicClick={(topic) => handleSend(`ספר לי עוד על ${topic}`)}
               />
             ))}
