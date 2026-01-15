@@ -8,11 +8,13 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 
 const firebaseConfig = {
   apiKey: process.env.VITE_FIREBASE_API_KEY,
-  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VITE_FIREBASE_PROJECT_ID || "biobotil",
-  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.VITE_FIREBASE_APP_ID
+  authDomain: "biobotil.firebaseapp.com",
+  databaseURL: "https://biobotil-default-rtdb.firebaseio.com",
+  projectId: "biobotil",
+  storageBucket: "biobotil.firebasestorage.app",
+  messagingSenderId: "181222177438",
+  appId: process.env.VITE_FIREBASE_APP_ID,
+  measurementId: "G-ZL8QWH3LE8"
 };
 
 const app = initializeApp(firebaseConfig);
