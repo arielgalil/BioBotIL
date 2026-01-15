@@ -16,4 +16,4 @@
   - [ ] Subtask: Update the `try-catch` blocks in `geminiService.ts` to specifically handle "Model Not Found" or new rate limit codes that might differ for preview models.
 - [x] Task: Cleanup - Remove Debug Logs (ff1021d)
   - [ ] Subtask: Remove the temporary logging added in Phase 1.
-- [ ] Task: Conductor - User Manual Verification 'Error Handling & Cleanup' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Error Handling & Cleanup' (Protocol in workflow.md)
