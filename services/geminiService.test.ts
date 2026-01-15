@@ -103,12 +103,20 @@ describe('geminiService', () => {
 
       await streamChatResponse('fake-key', [], 'Hello', onChunk);
       
-      expect(sendMessageStreamMock).toHaveBeenCalledTimes(2);
-      expect(onChunk).toHaveBeenCalledWith('Success');
-    });
-  });
-
-  describe('generateWidgets', () => {
+          expect(sendMessageStreamMock).toHaveBeenCalledTimes(2);
+          expect(onChunk).toHaveBeenCalledWith('Success');
+        });
+      
+        it('should throw clear error on 404 Model Not Found', async () => {
+          const onChunk = vi.fn();
+          const error404 = { status: 404, message: 'Model not found' };
+          sendMessageStreamMock.mockRejectedValue(error404);
+      
+          await expect(streamChatResponse('fake-key', [], 'Hello', onChunk))
+            .rejects.toThrow('Model not found (404)');
+        });
+      });
+        describe('generateWidgets', () => {
     it('should call generateContent with correct model and schema', async () => {
       await generateWidgets('fake-key', 'Photosynthesis');
       

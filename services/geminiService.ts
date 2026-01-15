@@ -114,6 +114,11 @@ export const streamChatResponse = async (
               await delay(waitTime);
               continue;
            }
+
+           const isNotFound = e && (e.status === 404 || e.code === 404 || e.message?.includes('404') || e.message?.includes('not found'));
+           if (isNotFound) {
+               throw new Error("Model not found (404). The preview model might have been deprecated.");
+           }
            
            // If not rate limit, rethrow immediately
            throw e;
@@ -298,6 +303,12 @@ export const generateWidgets = async (
            console.warn("Widget generation skipped due to sustained rate limit.");
            return [];
         }
+      }
+      
+      const isNotFound = e && (e.status === 404 || e.code === 404 || e.message?.includes('404') || e.message?.includes('not found'));
+      if (isNotFound) {
+          console.error("Widget generation failed: Model not found (404)");
+          return [];
       }
       
       console.error("Failed to generate or parse widget JSON after retries", e);
