@@ -11,7 +11,7 @@
   - [x] Subtask: Implement a unit test or dev-mode trigger to call `generateWidgets` 5 times with different topics to ensure consistent JSON parsing. (4a83bee)
 - [x] Task: UI - Validate Widget Rendering (316740e)
   - [ ] Subtask: Verify that the generated JSON data (Knowledge Questions, Causal Chains) is correctly rendered by the `GameWidgets` component without React errors.
-- [ ] Task: Conductor - User Manual Verification 'Widget Generation Stability' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Widget Generation Stability' (Protocol in workflow.md)
 
 ## Phase 3: Error Handling & Cleanup
 - [ ] Task: Service - Refine Error Handling
