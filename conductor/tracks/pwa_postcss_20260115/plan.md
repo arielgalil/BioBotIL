@@ -11,14 +11,10 @@
 - [x] Task: Infrastructure - Migrate Static Manifest (c18f9c7)
 - [x] Task: Conductor - User Manual Verification 'Vite PWA Plugin Integration' (Protocol in workflow.md) (5194400)
 
-## Phase 3: UI Implementation & Metadata Cleanup
+## Phase 3: UI Implementation & Metadata Cleanup [checkpoint: 343bb9b]
 - [x] Task: UI - Fix Deprecated Metadata (6676faf)
-  - [ ] Subtask: Update `index.html` to replace `apple-mobile-web-app-capable` with `mobile-web-app-capable`.
-  - [ ] Subtask: Remove any other deprecated meta tags or console-warning-triggering elements.
 - [x] Task: UI - Implement Install Prompt Logic (20b7293)
-  - [ ] Subtask: Create a custom hook or state in `App.tsx` to listen for the `beforeinstallprompt` event.
-  - [ ] Subtask: Implement a visually appealing "Install App" button that only appears when the event is captured.
-- [ ] Task: Conductor - User Manual Verification 'UI Implementation & Metadata Cleanup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'UI Implementation & Metadata Cleanup' (Protocol in workflow.md) (343bb9b)
 
 ## Phase 4: Final Verification & Audit
 - [ ] Task: Testing - PWA Audit & Offline Verification
