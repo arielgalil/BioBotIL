@@ -8,13 +8,13 @@ This plan implements a client-side budget tracking and enforcement system using 
 - [x] Task: Create a setup script or documentation for creating the `config/billing` document in Firestore 4223597
 - [x] Task: Conductor - User Manual Verification 'Infrastructure & Firebase Setup' (Protocol in workflow.md)
 
-## Phase 2: Billing Service Implementation (TDD)
+## Phase 2: Billing Service Implementation (TDD) [checkpoint: 3ec7145]
 - [x] Task: Create `services/billingService.ts` with cost calculation logic and Firestore interaction 274da03
 - [x] Task: Write failing tests for `calculateCost(usage, model)` to ensure correct pricing application 274da03
 - [x] Task: Implement `calculateCost` to pass tests 274da03
 - [x] Task: Write failing tests for `isBudgetAvailable()` (mocking Firestore) 274da03
 - [x] Task: Implement `isBudgetAvailable` and `updateCumulativeCost(amount)` 274da03
-- [~] Task: Conductor - User Manual Verification 'Billing Service Implementation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Billing Service Implementation' (Protocol in workflow.md)
 
 ## Phase 3: Gemini Service Integration
 - [ ] Task: Integrate budget check into `streamChatResponse` in `services/geminiService.ts`
