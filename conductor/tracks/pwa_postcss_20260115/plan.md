@@ -11,7 +11,7 @@
   - [ ] Subtask: Update `tailwind.config.ts` to include `content` paths for all React components.
   - [ ] Subtask: Create a `src/index.css` file with `@tailwind base;`, `@tailwind components;`, and `@tailwind utilities;`.
   - [ ] Subtask: Import `index.css` in `index.tsx`.
-- [ ] Task: Conductor - User Manual Verification 'Environment & PostCSS Setup' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Environment & PostCSS Setup' (Protocol in workflow.md)
 
 ## Phase 2: Vite PWA Plugin Integration
 - [ ] Task: Infrastructure - Install & Configure Vite PWA Plugin

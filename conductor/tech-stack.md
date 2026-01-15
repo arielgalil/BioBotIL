@@ -3,7 +3,7 @@
 ## Frontend
 - **Framework:** React 19
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS
+- **Styling:** Tailwind CSS v4 (integrated via `@tailwindcss/vite`)
 - **Icon Library:** Lucide React
 
 ## AI & Logic

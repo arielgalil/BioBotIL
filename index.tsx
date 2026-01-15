@@ -16,6 +16,7 @@ root.render(
   </React.StrictMode>
 );
 
+/* 
 // PWA Service Worker Registration
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -28,3 +29,4 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+*/

@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [ ] Track: PWA & PostCSS Migration
+## [~] Track: PWA & PostCSS Migration
 *Link: [./conductor/tracks/pwa_postcss_20260115/](./conductor/tracks/pwa_postcss_20260115/)*
