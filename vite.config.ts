@@ -48,6 +48,17 @@ export default defineConfig(({ mode }) => {
           }
         })
       ],
+      build: {
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'vendor-ai': ['@google/genai'],
+              'vendor-ui': ['lucide-react', 'react', 'react-dom'],
+            },
+          },
+        },
+        chunkSizeWarningLimit: 800,
+      },
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)

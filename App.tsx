@@ -103,11 +103,38 @@ function App() {
   const [suggestions, setSuggestions] = useState<{icon: string, text: string}[]>([]);
   const [confirmClear, setConfirmClear] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const initializedFromUrl = useRef(false);
   
   useEffect(() => {
     // Shuffle and pick 6 suggestions on mount
     const shuffled = [...QUESTION_POOL].sort(() => 0.5 - Math.random());
-    setSuggestions(shuffled.slice(0, 6));
+    
+    // Check for slug to refine suggestions
+    const path = window.location.pathname;
+    const segments = path.split('/').filter(s => s && s !== 'index.html');
+    
+    if (segments.length > 0) {
+        const slug = decodeURIComponent(segments[0]);
+        // Simple relevance check: does the question contain words from the slug or vice versa
+        const slugWords = slug.split(/[\s-]/).filter(w => w.length > 2);
+        const related = QUESTION_POOL.filter(q => 
+            slugWords.some(word => q.text.includes(word)) || q.text.includes(slug)
+        );
+        
+        if (related.length >= 3) {
+            // Mix related with some random ones for variety
+            const finalSuggestions = [...related.slice(0, 4), ...shuffled.filter(s => !related.includes(s)).slice(0, 2)];
+            setSuggestions(finalSuggestions.sort(() => 0.5 - Math.random()));
+        } else {
+            setSuggestions(shuffled.slice(0, 6));
+        }
+        
+        // Update Title
+        document.title = `${RLM}BIOבוט - ${slug}`;
+    } else {
+        setSuggestions(shuffled.slice(0, 6));
+        document.title = `${RLM}BIOבוט`;
+    }
   }, []);
 
   // -- Persistence Effects --
@@ -280,6 +307,35 @@ function App() {
       setIsLoading(false);
     }
   };
+
+  // -- URL Slug Initialization --
+  useEffect(() => {
+    if (initializedFromUrl.current) return;
+    
+    const path = window.location.pathname;
+    const segments = path.split('/').filter(s => s && s !== 'index.html');
+    const params = new URLSearchParams(window.location.search);
+    const queryText = params.get('q') || params.get('text');
+
+    if (segments.length > 0 || queryText) {
+      initializedFromUrl.current = true;
+      
+      const slug = segments.length > 0 ? decodeURIComponent(segments[0]) : '';
+      const pathText = segments.slice(1).map(s => decodeURIComponent(s)).join(' ');
+      const combinedText = pathText || queryText || '';
+      
+      const initialPrompt = combinedText 
+        ? (slug ? `${slug}: ${combinedText}` : combinedText)
+        : slug;
+      
+      if (initialPrompt && !messages.some(m => m.content === initialPrompt)) {
+        // Short delay to ensure everything is mounted and ready
+        setTimeout(() => {
+          handleSend(initialPrompt);
+        }, 800);
+      }
+    }
+  }, [messages, handleSend]);
 
   return (
     <div className="flex flex-col h-full max-w-4xl mx-auto bg-white dark:bg-gray-900 shadow-2xl overflow-hidden relative transition-colors duration-300">
