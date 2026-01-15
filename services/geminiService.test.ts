@@ -61,15 +61,6 @@ describe('geminiService', () => {
   });
 
   describe('streamChatResponse', () => {
-    it('should log the model name', async () => {
-      const consoleSpy = vi.spyOn(console, 'log');
-      const onChunk = vi.fn();
-      
-      await streamChatResponse('fake-api-key', [], 'Hello', onChunk);
-
-      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('Using model: gemini-2.5-flash-lite-preview-09-2025'));
-    });
-
     it('should stream response chunks', async () => {
       const onChunk = vi.fn();
       const chunks = [{ text: 'Part 1' }, { text: 'Part 2' }];

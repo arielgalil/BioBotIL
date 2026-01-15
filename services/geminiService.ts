@@ -80,7 +80,6 @@ export const streamChatResponse = async (
 ) => {
   // Use Singleton instance
   const ai = getGenAI(apiKey);
-  console.log(`Using model: ${MODEL_TEXT}`);
   
   let retries = 0;
   const MAX_RETRIES = 2; // Reduced for faster user feedback on 429
