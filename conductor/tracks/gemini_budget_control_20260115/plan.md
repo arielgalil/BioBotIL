@@ -2,11 +2,11 @@
 
 This plan implements a client-side budget tracking and enforcement system using Firebase Firestore to prevent Gemini API overages.
 
-## Phase 1: Infrastructure & Firebase Setup
+## Phase 1: Infrastructure & Firebase Setup [checkpoint: 8044a8e]
 - [x] Task: Install Firebase dependencies (`firebase`) 30cad20
 - [x] Task: Initialize Firebase app and Firestore instance in a new `services/firebase.ts` file bd60ddd
 - [x] Task: Create a setup script or documentation for creating the `config/billing` document in Firestore 4223597
-- [ ] Task: Conductor - User Manual Verification 'Infrastructure & Firebase Setup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Infrastructure & Firebase Setup' (Protocol in workflow.md)
 
 ## Phase 2: Billing Service Implementation (TDD)
 - [ ] Task: Create `services/billingService.ts` with cost calculation logic and Firestore interaction
