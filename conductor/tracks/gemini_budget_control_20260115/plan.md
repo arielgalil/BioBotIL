@@ -16,13 +16,13 @@ This plan implements a client-side budget tracking and enforcement system using 
 - [x] Task: Implement `isBudgetAvailable` and `updateCumulativeCost(amount)` 274da03
 - [x] Task: Conductor - User Manual Verification 'Billing Service Implementation' (Protocol in workflow.md)
 
-## Phase 3: Gemini Service Integration
+## Phase 3: Gemini Service Integration [checkpoint: 85d9341]
 - [x] Task: Integrate budget check into `streamChatResponse` in `services/geminiService.ts` 6b7acfe
 - [x] Task: Integrate cost update into `streamChatResponse` after stream completion using `usageMetadata` 6b7acfe
 - [x] Task: Integrate budget check into `generateWidgets` in `services/geminiService.ts` 6b7acfe
 - [x] Task: Integrate cost update into `generateWidgets` after successful JSON response 6b7acfe
 - [x] Task: Write integration tests in `services/geminiService.test.ts` to verify API calls are blocked when budget is exhausted 6b7acfe
-- [~] Task: Conductor - User Manual Verification 'Gemini Service Integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Gemini Service Integration' (Protocol in workflow.md)
 
 ## Phase 4: UI & Error Handling
 - [ ] Task: Update `App.tsx` to handle the specific "Budget Exceeded" error thrown by the service
