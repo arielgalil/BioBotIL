@@ -1,7 +1,7 @@
 # Track Plan: PWA & PostCSS Migration
 
 ## Phase 1: Environment & PostCSS Setup
-- [ ] Task: Project - Remove Tailwind CDN
+- [x] Task: Project - Remove Tailwind CDN (e76fcb5)
   - [ ] Subtask: Remove the `<script src="https://cdn.tailwindcss.com"></script>` tag from `index.html`.
   - [ ] Subtask: Verify that styles break (Red phase for CSS setup).
 - [ ] Task: Infrastructure - Install PostCSS & Tailwind
