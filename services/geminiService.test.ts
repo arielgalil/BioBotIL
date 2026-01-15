@@ -2,6 +2,16 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { streamChatResponse, generateWidgets } from './geminiService';
 import { WidgetType } from '../types';
 
+// Mock the Billing Service
+vi.mock('./billingService', () => ({
+  isBudgetAvailable: vi.fn().mockResolvedValue(true),
+  updateCumulativeCost: vi.fn().mockResolvedValue(undefined),
+  calculateCost: vi.fn().mockReturnValue(0.01),
+}));
+
+// Re-import to access the mocked functions if needed, but for simplicity we will just use vi.mocked inside tests
+import { isBudgetAvailable, updateCumulativeCost } from './billingService';
+
 // Mock the GoogleGenAI SDK
 const sendMessageStreamMock = vi.fn();
 const generateContentMock = vi.fn();
@@ -106,6 +116,29 @@ describe('geminiService', () => {
           await expect(streamChatResponse('fake-key', [], 'Hello', onChunk))
             .rejects.toThrow('Model not found (404)');
         });
+
+        it('should throw BUDGET_EXCEEDED when budget is not available', async () => {
+          vi.mocked(isBudgetAvailable).mockResolvedValueOnce(false);
+          const onChunk = vi.fn();
+          
+          await expect(streamChatResponse('fake-key', [], 'Hello', onChunk))
+            .rejects.toThrow('BUDGET_EXCEEDED');
+          
+          expect(createChatMock).not.toHaveBeenCalled();
+        });
+
+        it('should update cost after successful stream', async () => {
+          const onChunk = vi.fn();
+          sendMessageStreamMock.mockResolvedValue({
+            [Symbol.asyncIterator]: async function* () {
+              yield { text: 'Done', usageMetadata: { promptTokenCount: 10, candidatesTokenCount: 20 } };
+            },
+          });
+
+          await streamChatResponse('fake-key', [], 'Hello', onChunk);
+          
+          expect(updateCumulativeCost).toHaveBeenCalled();
+        });
       });
         describe('generateWidgets', () => {
     it('should call generateContent with correct model and schema', async () => {
@@ -118,6 +151,27 @@ describe('geminiService', () => {
           responseSchema: expect.any(Object)
         })
       }));
+    });
+
+    it('should return empty array when budget is exceeded', async () => {
+      vi.mocked(isBudgetAvailable).mockResolvedValueOnce(false);
+      const widgets = await generateWidgets('fake-key', 'Biology');
+      expect(widgets).toEqual([]);
+      expect(generateContentMock).not.toHaveBeenCalled();
+    });
+
+    it('should update cost after successful widget generation', async () => {
+      generateContentMock.mockResolvedValue({
+        text: JSON.stringify({
+          relatedTopics: ['T'],
+          knowledgeQuestion: { question: 'Q', isTrue: true, explanation: 'E' },
+          applicationTask: { title: 'T', steps: ['S1', 'S2', 'S3', 'S4', 'S5'] }
+        }),
+        usageMetadata: { promptTokenCount: 50, candidatesTokenCount: 100 }
+      });
+
+      await generateWidgets('fake-key', 'Biology');
+      expect(updateCumulativeCost).toHaveBeenCalled();
     });
 
     it('should parse True/False and Cloze correctly', async () => {

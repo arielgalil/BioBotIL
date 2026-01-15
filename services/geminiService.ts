@@ -1,5 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { WidgetType, WidgetData } from "../types";
+import { isBudgetAvailable, calculateCost, updateCumulativeCost } from "./billingService";
 
 // --- Configuration ---
 
@@ -83,6 +84,11 @@ export const streamChatResponse = async (
   onChunk: (text: string) => void,
   isReply: boolean = false
 ) => {
+  // Budget Check
+  if (!(await isBudgetAvailable())) {
+    throw new Error("BUDGET_EXCEEDED");
+  }
+
   // Use Singleton instance
   const ai = getGenAI(apiKey);
   
@@ -102,11 +108,26 @@ export const streamChatResponse = async (
 
           const result = await chat.sendMessageStream({ message: newMessage });
 
+          let finalUsage = null;
           for await (const chunk of result) {
             if (chunk.text) {
               onChunk(chunk.text);
             }
+            if (chunk.usageMetadata) {
+              finalUsage = chunk.usageMetadata;
+            }
           }
+
+          // Update Budget
+          if (finalUsage) {
+            const cost = calculateCost(
+              finalUsage.promptTokenCount,
+              finalUsage.candidatesTokenCount,
+              MODEL_TEXT
+            );
+            await updateCumulativeCost(cost);
+          }
+
           return; // Success
       } catch (e: any) {
            const isRateLimit = e && (e.status === 429 || e.code === 429 || e.message?.includes('429') || e.message?.includes('RESOURCE_EXHAUSTED'));
@@ -141,6 +162,12 @@ export const generateWidgets = async (
   apiKey: string,
   topic: string
 ): Promise<WidgetData[]> => {
+  // Budget Check
+  if (!(await isBudgetAvailable())) {
+    console.warn("Widget generation skipped: Budget Exceeded");
+    return [];
+  }
+
   // Use Singleton instance
   const ai = getGenAI(apiKey);
 
@@ -237,6 +264,16 @@ export const generateWidgets = async (
       });
 
       if (!response.text) return [];
+
+      // Update Budget
+      if (response.usageMetadata) {
+        const cost = calculateCost(
+          response.usageMetadata.promptTokenCount,
+          response.usageMetadata.candidatesTokenCount,
+          MODEL_LOGIC
+        );
+        await updateCumulativeCost(cost);
+      }
 
       const json = JSON.parse(response.text);
       const widgets: WidgetData[] = [];
