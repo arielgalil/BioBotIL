@@ -509,6 +509,7 @@ const CausalChainWidget: React.FC<{ data: CausalChainData }> = ({ data }) => {
         <List className="w-6 h-6" />
         <span>שרשרת הסיבות</span>
       </div>
+      {data.title && <p className="text-base font-bold mb-2 text-gray-800 dark:text-gray-100">{data.title}</p>}
       <p className="text-base text-gray-500 dark:text-gray-400 mb-6">גרור את המשפטים לסדר הנכון:</p>
 
       <div className="relative space-y-3 mb-6 select-none py-2">
