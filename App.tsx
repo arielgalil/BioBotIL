@@ -278,10 +278,20 @@ function App() {
         error?.message?.includes('429') || 
         error?.message?.includes('RESOURCE_EXHAUSTED') ||
         error?.message?.includes('quota');
+      
+      const isBudgetExceeded = error?.message?.includes('BUDGET_EXCEEDED');
 
       let userMessage = "\n\n(אירעה שגיאה בתקשורת. אנא נסה שוב)";
 
-      if (isRateLimit) {
+      if (isBudgetExceeded) {
+        userMessage = `
+
+---
+🛑 **מגבלת תקציב**
+
+מצטערים, המערכת הגיעה למגבלת התקציב היומית שלה. נסו שוב מאוחר יותר.
+`;
+      } else if (isRateLimit) {
          // Do not log as error to avoid scary console overlays
          console.warn("Quota exceeded (429), alerting user.");
          userMessage = `
@@ -300,7 +310,7 @@ function App() {
 
       setMessages(prev => prev.map(msg => 
         msg.id === botMsgId 
-          ? { ...msg, isStreaming: false, content: msg.content + userMessage } 
+          ? { ...msg, content: msg.content + userMessage, isStreaming: false } 
           : msg
       ));
     } finally {
