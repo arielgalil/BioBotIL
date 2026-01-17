@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { WidgetType, WidgetData } from "../types";
 import { isBudgetAvailable, calculateCost, updateCumulativeCost } from "./billingService";
-import { MODELS } from "../config";
+import { MODELS, STORAGE_KEYS } from "../config";
 
 // --- Singleton Instance Management ---
 let genAIInstance: GoogleGenAI | null = null;
@@ -97,7 +97,13 @@ export const streamChatResponse = async (
 
           if (finalUsage) {
             const cost = calculateCost(finalUsage.promptTokenCount, finalUsage.candidatesTokenCount, MODELS.TEXT);
-            await updateCumulativeCost(cost);
+            const userId = localStorage.getItem(STORAGE_KEYS.USER_ID) || 'unknown';
+            await updateCumulativeCost(cost, {
+              userId,
+              model: MODELS.TEXT,
+              inputTokens: finalUsage.promptTokenCount,
+              outputTokens: finalUsage.candidatesTokenCount
+            });
           }
           return; 
       } catch (e: any) {
@@ -178,7 +184,13 @@ export const generateWidgets = async (apiKey: string, topic: string): Promise<Wi
       if (!response.text) return [];
       if (response.usageMetadata) {
         const cost = calculateCost(response.usageMetadata.promptTokenCount, response.usageMetadata.candidatesTokenCount, MODELS.LOGIC);
-        await updateCumulativeCost(cost);
+        const userId = localStorage.getItem(STORAGE_KEYS.USER_ID) || 'unknown';
+        await updateCumulativeCost(cost, {
+          userId,
+          model: MODELS.LOGIC,
+          inputTokens: response.usageMetadata.promptTokenCount,
+          outputTokens: response.usageMetadata.candidatesTokenCount
+        });
       }
 
       const json = JSON.parse(response.text);

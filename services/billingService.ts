@@ -1,6 +1,7 @@
 import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { PRICING } from "../config";
+import { logActivity } from "./activityService";
 
 export const calculateCost = (inputTokens: number, outputTokens: number, model: string): number => {
   const modelPricing = PRICING[model as keyof typeof PRICING];
@@ -26,11 +27,15 @@ export const isBudgetAvailable = async (): Promise<boolean> => {
   }
 };
 
-// Note: In this project, client-side writes to config/billing are forbidden by Firestore rules.
-// Billing tracking is likely handled by a backend trigger/Cloud Function.
-export const updateCumulativeCost = async (amount: number): Promise<void> => {
-  // We keep the function signature to avoid breaking callers, 
-  // but we remove the forbidden write operation.
-  if (amount <= 0) return;
-  // console.log(`[Billing] Skip client-side update of ${amount} (Forbidden by rules)`);
+/**
+ * Updates cumulative cost by logging an activity.
+ * The actual increment happens in Cloud Functions based on the log.
+ */
+export const updateCumulativeCost = async (amount: number, metadata?: { userId: string, model: string, inputTokens: number, outputTokens: number }): Promise<void> => {
+  if (amount <= 0 || !metadata) return;
+  // We log the activity which triggers the Cloud Function to update the budget document securely.
+  await logActivity({
+    type: 'message_received',
+    ...metadata
+  });
 };

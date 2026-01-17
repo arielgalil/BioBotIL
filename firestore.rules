@@ -7,20 +7,27 @@ service cloud.firestore {
     match /config/billing {
       allow get: if true;
       allow list: if false;
+      allow write: if false; // ONLY Cloud Functions can write
+    }
+
+    // Stats: Now updated by Cloud Functions. Clients can only read.
+    match /stats/global {
+      allow get: if true;
+      allow list: if false;
+      allow create, update, delete: if false;
+    }
+
+    // Users: Profiles are now updated by Cloud Functions.
+    match /users/{userId} {
+      allow get: if true;
+      allow list: if false;
       allow write: if false;
     }
 
-    // Stats: App increments these. We allow get/create/update but not list.
-    match /stats/global {
-      allow get, create, update: if true;
-      allow list: if false;
-    }
-
-    // Users: App tracks individual users. 
-    // We allow get (for the user's own doc) and write, but block list (browsing all users).
-    match /users/{userId} {
-      allow get, create, update: if true;
-      allow list: if false;
+    // Activity Logs: Clients can ONLY create logs. They cannot read or modify them.
+    match /activity_logs/{logId} {
+      allow create: if true;
+      allow read, update, delete: if false;
     }
     
     // Default: Deny all

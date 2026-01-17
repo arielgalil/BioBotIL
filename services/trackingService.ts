@@ -1,8 +1,5 @@
-import { db } from "./firebase";
-import { doc, setDoc, updateDoc, increment, getDoc, serverTimestamp } from "firebase/firestore";
 import { STORAGE_KEYS } from "../config";
-
-const STATS_DOC_REF = doc(db, "stats", "global");
+import { logActivity } from "./activityService";
 
 const getUserId = (): string => {
   let userId = localStorage.getItem(STORAGE_KEYS.USER_ID);
@@ -15,33 +12,20 @@ const getUserId = (): string => {
 
 export const initializeUserTracking = async () => {
   const userId = getUserId();
-  const userDocRef = doc(db, "users", userId);
   if (localStorage.getItem(STORAGE_KEYS.USER_TRACKED)) return;
 
-  try {
-    const userSnapshot = await getDoc(userDocRef);
-    if (!userSnapshot.exists()) {
-      await setDoc(userDocRef, { firstSeen: serverTimestamp(), lastActive: serverTimestamp(), messagesSent: 0, messagesReceived: 0 });
-      await updateDoc(STATS_DOC_REF, { totalUsers: increment(1) }).catch(async () => {
-        await setDoc(STATS_DOC_REF, { totalUsers: 1, totalMessagesSent: 0, totalMessagesReceived: 0 });
-      });
-    }
-    localStorage.setItem(STORAGE_KEYS.USER_TRACKED, "true");
-  } catch (e) {}
+  // Log session start - Cloud Function will handle doc creation and global increment
+  await logActivity({ type: 'session_start', userId });
+  localStorage.setItem(STORAGE_KEYS.USER_TRACKED, "true");
 };
 
 export const trackMessageSent = async () => {
-    const userDocRef = doc(db, "users", getUserId());
-    try {
-        await setDoc(userDocRef, { messagesSent: increment(1), lastActive: serverTimestamp() }, { merge: true });
-        await updateDoc(STATS_DOC_REF, { totalMessagesSent: increment(1) });
-    } catch (e) {}
+    await logActivity({ type: 'message_sent', userId: getUserId() });
 };
 
 export const trackMessageReceived = async () => {
-    const userDocRef = doc(db, "users", getUserId());
-    try {
-        await setDoc(userDocRef, { messagesReceived: increment(1), lastActive: serverTimestamp() }, { merge: true });
-        await updateDoc(STATS_DOC_REF, { totalMessagesReceived: increment(1) });
-    } catch (e) {}
+    // Note: trackMessageReceived is now mostly handled via updateCumulativeCost 
+    // in the bot response flow to avoid double logging.
+    // If called directly, we just log the type.
+    await logActivity({ type: 'message_received', userId: getUserId() });
 };
