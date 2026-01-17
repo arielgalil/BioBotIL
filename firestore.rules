@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Config: App needs to read billing to check budget. No one should write.
+    match /config/billing {
+      allow get: if true;
+      allow list: if false;
+      allow write: if false;
+    }
+
+    // Stats: App increments these. We allow get/create/update but not list.
+    match /stats/global {
+      allow get, create, update: if true;
+      allow list: if false;
+    }
+
+    // Users: App tracks individual users. 
+    // We allow get (for the user's own doc) and write, but block list (browsing all users).
+    match /users/{userId} {
+      allow get, create, update: if true;
+      allow list: if false;
+    }
+    
+    // Default: Deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

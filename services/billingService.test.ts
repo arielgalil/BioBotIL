@@ -23,11 +23,13 @@ describe('billingService', () => {
 
   describe('calculateCost', () => {
     it('should calculate cost correctly for Gemini 2.5 Flash Lite (Input)', () => {
+      // Input: $0.075 / 1M tokens
       const cost = calculateCost(1000000, 0, 'gemini-2.5-flash-lite-preview-09-2025');
       expect(cost).toBeCloseTo(0.075, 5);
     });
 
     it('should calculate cost correctly for Gemini 2.5 Flash Lite (Output)', () => {
+      // Output: $0.30 / 1M tokens
       const cost = calculateCost(0, 1000000, 'gemini-2.5-flash-lite-preview-09-2025');
       expect(cost).toBeCloseTo(0.30, 5);
     });
@@ -83,25 +85,14 @@ describe('billingService', () => {
   });
 
   describe('updateCumulativeCost', () => {
-    it('should call updateDoc with increment', async () => {
+    it('should NOT call updateDoc (client-side writes are forbidden)', async () => {
       await updateCumulativeCost(0.05);
-      expect(updateDoc).toHaveBeenCalledWith(expect.anything(), {
-        currentCost: 0.05
-      });
+      expect(updateDoc).not.toHaveBeenCalled();
     });
 
     it('should not call updateDoc if amount is 0', async () => {
       await updateCumulativeCost(0);
       expect(updateDoc).not.toHaveBeenCalled();
-    });
-
-    it('should log error on updateDoc exception', async () => {
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      vi.mocked(updateDoc).mockRejectedValueOnce(new Error('Update failed'));
-
-      await updateCumulativeCost(0.1);
-      expect(consoleSpy).toHaveBeenCalled();
-      consoleSpy.mockRestore();
     });
   });
 });
